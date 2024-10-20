@@ -1,39 +1,37 @@
 ---
-name: Build Image
+name: Packer Validate
 
-env:
-  SUBSCRIPTION_ID: ${{secrets.SUBSCRIPTION_ID}}
-  TENANT_ID: ${{secrets.TENANT_ID}}
-  CLIENT_ID: ${{secrets.CLIENT_ID}}
-  CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-"on":
+on:
   push:
-    branches: [main]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main  
+  workflow_dispatch: 
 
+permissions:
+  contents: write
+  
 jobs:
-  image_creation_job:
+  packer-validate:
+    name: Packer Validate
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Setting up Hashicorp Packer
         uses: hashicorp-contrib/setup-packer@v3
         with:
           packer-version: 1.11.0
 
-      - name: Setting packer logs to Verbose
-        run: export PACKER_LOG=1
-
       - name: Download Packer plugin libraries
         run: packer init image.pkr.hcl
+        
+      - name: Packer FMT 
+        run: packer fmt -check image.pkr.hcl 
 
       - name: Packer template validation
         run: packer validate image.pkr.hcl 
-
-      - name: Building Packer Template
-        run: |
-          packer build \
-            -var "CLIENT_SECRET=${{secrets.CLIENT_SECRET}}" \
-            -var "CLIENT_ID=${{secrets.CLIENT_ID}}" \
-            -var "TENANT_ID=${{secrets.TENANT_ID}}" \
-            -var "SUBSCRIPTION_ID=${{secrets.SUBSCRIPTION_ID}}" \
-            image.pkr.hcl
