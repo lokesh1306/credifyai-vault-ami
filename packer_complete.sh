@@ -2,6 +2,7 @@
 
 # Install certbot for Let's Encrypt
 sudo apt-get update -y
+sudo apt-get install -y python
 sudo apt-get install -y certbot
 sudo mv /tmp/certbot/* /usr/local/bin/
 sudo chmod 755 /usr/local/bin/certbot_initial.sh
