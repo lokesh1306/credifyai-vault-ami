@@ -36,9 +36,9 @@ source "azure-arm" "vault" {
   managed_image_resource_group_name = var.resource_group_name
   managed_image_name                = "vault-image"
   location                          = "Central US"
-  image_publisher                   = "Canonical"
+  image_publisher                   = "canonical"
   image_offer                       = "0001-com-ubuntu-server-jammy"
-  image_sku                         = "22_04-lts-gen2"
+  image_sku                         = "22_04-lts"
   vm_size                           = "Standard_DS2_v2"
 }
 
