@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo certbot --nginx -d vault.lokesh.cloud --non-interactive --agree-tos -m chlokesh1306@gmail.com --deploy-hook 'cp /etc/letsencrypt/live/vault.lokesh.cloud/fullchain.pem /etc/ssl/certs/vault.crt && cp /etc/letsencrypt/live/vault.lokesh.cloud/privkey.pem /etc/ssl/private/vault.key'
