@@ -54,4 +54,4 @@ EOF
 
 # Enable Vault
 sudo systemctl enable vault
-echo "All done!"
+echo "All done"
