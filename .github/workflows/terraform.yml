@@ -1,0 +1,37 @@
+---
+name: Packer Validate
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main  
+  workflow_dispatch: 
+
+permissions:
+  contents: write
+  
+jobs:
+  packer-validate:
+    name: Packer Validate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setting up Hashicorp Packer
+        uses: hashicorp-contrib/setup-packer@v3
+        with:
+          packer-version: 1.11.0
+
+      - name: Download Packer plugin libraries
+        run: packer init image.pkr.hcl
+        
+      - name: Packer FMT 
+        run: packer fmt -check image.pkr.hcl 
+
+      - name: Packer template validation
+        run: packer validate image.pkr.hcl 
