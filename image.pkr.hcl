@@ -28,10 +28,10 @@ variable "CLIENT_SECRET" {
 }
 
 source "azure-arm" "vault" {
-  subscription_id = var.SUBSCRIPTION_ID
-  tenant_id       = var.TENANT_ID
-  client_id       = var.CLIENT_ID
-  client_secret   = var.CLIENT_SECRET
+  subscription_id                   = var.SUBSCRIPTION_ID
+  tenant_id                         = var.TENANT_ID
+  client_id                         = var.CLIENT_ID
+  client_secret                     = var.CLIENT_SECRET
   os_type                           = "Linux"
   managed_image_resource_group_name = var.resource_group_name
   managed_image_name                = "vault-image"
